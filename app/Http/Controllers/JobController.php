@@ -94,12 +94,19 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
+        $job_types = JobType::all();
+        $regions = Region::all();
+        $locations = Location::all();
+
         if($job->user_id != auth()->id()){
             abort(403, 'Unauthorized Access');
         }
         
         return view('job.edit', [
-            'job' => $job
+            'job' => $job,
+            'job_types' => $job_types,
+            'regions' => $regions,
+            'locations' => $locations,
         ]);
     }
 
@@ -120,13 +127,21 @@ class JobController extends Controller
             'location_id' => ['required'],
         ]);
 
-        if($request->hasFile('logo')){
-            $formData['logo'] = $request->file('logo')->store('logos', 'public');
+        $storedFiles = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('uploads', 'public');
+                $storedFiles[] = $path;
+            }
+
+            $storedFiles = implode(',', $storedFiles);
+            $formData['images'] = $storedFiles;
         }
 
         $job->update($formData);
 
-        return back()->with('message', 'Job Updated Successfully!');
+        return redirect('/')->with('message', 'Job Updated Successfully!');
     }
 
     /**

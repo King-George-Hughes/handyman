@@ -7,10 +7,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobController::class, 'index']);
-Route::get('/add-job', [JobController::class, 'create'])->middleware('auth');
 Route::get('/job/{job}/detail', [JobController::class, 'show']);
-Route::get('/job/{job}/edit', [JobController::class, 'edit']);
-Route::post('/add-job', [JobController::class, 'store']);
+
+Route::get('/add-job', [JobController::class, 'create'])->middleware('auth');
+Route::get('/job/{job}/edit', [JobController::class, 'edit'])->middleware('auth');
+Route::patch('/job/{job}', [JobController::class, 'update'])->middleware('auth');
+Route::post('/add-job', [JobController::class, 'store'])->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

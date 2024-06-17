@@ -1,9 +1,10 @@
 <x-layout.layout>
-    <form class="w-full max-w-[500px] mx-auto px-5" action="/add-job" method="POST" enctype="multipart/form-data">
+    <form class="w-full max-w-[500px] mx-auto px-5" action="/job/{{$job->id}}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PATCH')
         <!-- Card -->
         <div class="rounded-xl shadow dark:bg-neutral-900">
-            <h1 class="text-2xl font-bold text-center p-6">Post a job listing</h1>
+            <h1 class="text-2xl font-bold text-center p-6">Edit job</h1>
             <div class="pt-0 p-4 sm:pt-0 sm:p-7">
                 <!-- Grid -->
                 <div class="space-y-4 sm:space-y-6">
@@ -13,7 +14,7 @@
                             Title
                         </label>
 
-                        <input value="{{ old('title') }}" name="title" id="af-submit-app-project-name" type="text"
+                        <input value="{{ $job->title }}" name="title" id="af-submit-app-project-name" type="text"
                             class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                             placeholder="Enter a title" />
 
@@ -28,11 +29,10 @@
                             Job type
                         </label>
 
-                        <select name="job_type_id" value="{{ old('job_type_id') }}" id="af-submit-app-category"
+                        <select name="job_type_id" value="{{ $job->job_type_id }}" id="af-submit-app-category"
                             class="py-2 px-3 pe-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                            <option selected>Select a category</option>
                             @foreach ($job_types as $job_type)
-                                <option value={{ $job_type['id'] }}>{{ $job_type->name }}</option>
+                                <option value="{{ $job_type->id }}" @if ($job->job_type_id === $job_type->id) selected @endif>{{ $job_type->name }}</option>
                             @endforeach
                         </select>
 
@@ -47,11 +47,10 @@
                             Region
                         </label>
 
-                        <select name="region_id" value="{{ old('region_id') }}" id="af-submit-app-category"
+                        <select name="region_id" value="{{ $job->region_id }}" id="af-submit-app-category"
                             class="py-2 px-3 pe-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                            <option selected>Select a category</option>
                             @foreach ($regions as $region)
-                                <option value={{ $region['id'] }}>{{ $region->name }}</option>
+                                <option value="{{ $region->id }}" @if ($job->region_id === $region->id) selected @endif>{{ $region->name }}</option>
                             @endforeach
                         </select>
 
@@ -66,11 +65,10 @@
                             Location
                         </label>
 
-                        <select name="location_id" value="{{ old('location_id') }}" id="af-submit-app-category"
+                        <select name="location_id" value="{{ $job->location_id }}" id="af-submit-app-category"
                             class="py-2 px-3 pe-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                            <option selected>Select a category</option>
                             @foreach ($locations as $location)
-                                <option value={{ $location['id'] }}>{{ $location->name }}</option>
+                                <option value="{{ $location->id }}" @if ($job->location_id === $location->id) selected @endif>{{ $location->name }}</option>
                             @endforeach
                         </select>
 
@@ -88,7 +86,7 @@
                         <textarea name="description" id="af-submit-app-description"
                             class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                             rows="6" placeholder="A detailed summary will better explain your job to the users.">
-                            {{old('description')}}
+                            {{ $job->description }}
                           </textarea>
 
                           @error('description')
@@ -104,7 +102,7 @@
 
                         <label for="af-submit-app-upload-images"
                             class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
-                            <input id="af-submit-app-upload-images" name="images[]" type="file" multiple
+                            <input id="af-submit-app-upload-images" name="images[]" type="file" multiple accept="image/*"
                                 class="sr-only" />
                             <svg class="size-10 mx-auto text-gray-400 dark:text-neutral-600"
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -121,6 +119,10 @@
                                 Maximum file size is 2 MB
                             </span>
                         </label>
+
+                        @error('images')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -132,7 +134,7 @@
         <div class="mt-10 w-full flex justify-center gap-x-2">
             <button type="submit"
                 class="w-full py-3 px-4 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                Add Post
+                Update Post
             </button>
         </div>
         <!-- End Card -->
