@@ -34,7 +34,7 @@
 
       <div class="w-full grid grid-cols-6 px-6 gap-5">
         <div class="w-full col-span-6 md:col-span-4">
-          <img class="rounded-md" src={{ $job->images ? asset('storage/' . $job->images) : asset('/images/george.jpg') }} alt="" />
+          <x-guest.split-single-image :images="$job->images" />
           <div class="pt-4">
             <h2 class="text-2xl font-bold">
               {{$job->job_type->name}},

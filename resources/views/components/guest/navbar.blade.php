@@ -22,11 +22,6 @@
                         Sign in
                     </a>
 
-                    <a href="{{ url('/add-job') }}" type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-brightRed hover:bg-brightRedLight transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-brightRedLight">
-                        Post a job
-                    </a>
-
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -34,6 +29,11 @@
                         </a>
                     @endif
                 @endauth
+
+                <a href="{{ url('/add-job') }}" type="button"
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-brightRed hover:bg-brightRedLight transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-brightRedLight">
+                        Post a job
+                    </a>
             @endif
 
             <div class="md:hidden">

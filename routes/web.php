@@ -12,10 +12,6 @@ Route::get('/job/{job}/detail', [JobController::class, 'show']);
 Route::get('/job/{job}/edit', [JobController::class, 'edit']);
 Route::post('/add-job', [JobController::class, 'store']);
 
-Route::get('/detail', function(){
-    return view('job.show');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
