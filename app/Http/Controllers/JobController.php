@@ -16,10 +16,16 @@ class JobController extends Controller
     public function index()
     {
         // $jobs = Job::latest()->get();
-        $jobs = Job::with('region', 'location', 'job_type', 'user')->latest()->get();
+        $jobs = Job::with('region', 'location', 'job_type', 'user')->latest()->paginate(6);
+        $job_types = JobType::all();
+        $regions = Region::all();
+        $locations = Location::all();
 
         return view('welcome', [
             'jobs' => $jobs,
+            'job_types' => $job_types,
+            'regions' => $regions,
+            'locations' => $locations,
         ]);
     }
 

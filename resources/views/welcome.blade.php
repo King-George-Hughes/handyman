@@ -21,23 +21,21 @@
     </div>
 
     <!-- Filter -->
-    <x-guest.filter />
+    <x-guest.filter :job_types="$job_types" :regions="$regions" :locations="$locations" />
     
 
     <!-- Cards -->
-    <section id="cards">
+    <section id="cards" class="w-full md:px-6 gap-5">
         <!-- Cards container -->
-        <div class="max-w-6xl px-5 mx-auto md:flex-row md:space-x-6">
+        <div class="w-full px-5 mx-auto md:flex-row md:space-x-6">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                 @foreach ($jobs as $job)
                     <x-guest.job-card :job="$job" />    
-                @endforeach
-                
-                {{-- <x-guest.job-card />
-                <x-guest.job-card />
-                <x-guest.job-card />
-                <x-guest.job-card />
-                <x-guest.job-card /> --}}
+                @endforeach                
+            </div>
+
+            <div class="mt-6 p-5">
+                {{$jobs->links()}}
             </div>
         </div>
     </section>

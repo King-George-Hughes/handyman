@@ -104,7 +104,7 @@
 
                         <label for="af-submit-app-upload-images"
                             class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
-                            <input id="af-submit-app-upload-images" name="images[]" type="file" multiple
+                            <input id="af-submit-app-upload-images" name="images[]" type="file" multiple accept="image/*"
                                 class="sr-only" />
                             <svg class="size-10 mx-auto text-gray-400 dark:text-neutral-600"
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -121,6 +121,10 @@
                                 Maximum file size is 2 MB
                             </span>
                         </label>
+
+                        @error('images')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
