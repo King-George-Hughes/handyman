@@ -50,15 +50,23 @@ class JobController extends Controller
             'job_type_id' => ['required'],
             'region_id' => ['required'],
             'location_id' => ['required'],
-            // 'images' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if($request->hasFile('images')){
-            $formData['images'] = $request->file('images')->store('uploads', 'public');
+        $storedFiles = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('uploads', 'public');
+                $storedFiles[] = $path;
+            }
         }
 
-        // $formData['user_id'] = auth()->id();
-        $formData['user_id'] = 1;
+        $storedFiles = implode(',', $storedFiles);
+        $formData['images'] = $storedFiles;
+
+        $formData['user_id'] = auth()->id();
+        // $formData['user_id'] = 1;
 
         Job::create($formData);
 
@@ -80,7 +88,13 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        if($job->user_id != auth()->id()){
+            abort(403, 'Unauthorized Access');
+        }
+        
+        return view('job.edit', [
+            'job' => $job
+        ]);
     }
 
     /**
@@ -88,7 +102,25 @@ class JobController extends Controller
      */
     public function update(Request $request, Job $job)
     {
-        //
+        if($job->user_id != auth()->id()){
+            abort(403, 'Unauthorized Access');
+        }
+
+        $formData = $request->validate([
+            'title' => 'required | min:3',
+            'description' => 'required | min:3',
+            'job_type_id' => ['required'],
+            'region_id' => ['required'],
+            'location_id' => ['required'],
+        ]);
+
+        if($request->hasFile('logo')){
+            $formData['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $job->update($formData);
+
+        return back()->with('message', 'Job Updated Successfully!');
     }
 
     /**

@@ -3,7 +3,7 @@
      <div class="relative h-[300px] md:h-[500px]">
         <img
           class="absolute w-full md:h-[500px] h-[300px] object-cover"
-          src="images/illustration-intro.jpg"
+          src={{ asset('/images/illustration-intro.jpg') }}
           alt=""
         />
         <!-- Search container -->
@@ -34,7 +34,7 @@
 
       <div class="w-full grid grid-cols-6 px-6 gap-5">
         <div class="w-full col-span-6 md:col-span-4">
-          <img class="rounded-md" src="images/george.jpg" alt="" />
+          <img class="rounded-md" src={{ $job->images ? asset('storage/' . $job->images) : asset('/images/george.jpg') }} alt="" />
           <div class="pt-4">
             <h2 class="text-2xl font-bold">
               {{$job->job_type->name}},
@@ -95,7 +95,7 @@
 
       <!-- Map -->
 
-      <div class="sm:mt-20 md:mt-0 w-full sm:h-96 md:h-[500px] p-6">
+      <div class="sm:mt-20 md:mt-10 w-full sm:h-96 md:h-[500px] p-6">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.680653713216!2d-0.2740382899723366!3d5.614089233040443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf997517d77cc7%3A0xd52c054ea61e55d!2sLapaz%20Race-course%20Last-stop%20Station!5e0!3m2!1sen!2sgh!4v1718121864149!5m2!1sen!2sgh"
           width="100%"

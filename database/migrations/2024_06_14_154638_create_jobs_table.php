@@ -18,9 +18,6 @@ return new class extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            // $table->string('job_type')->nullable();
-            // $table->string('region')->nullable();
-            // $table->string('location')->nullable();
             $table->text('images')->nullable();
             $table->text('description')->nullable();
             $table->foreignIdFor(User::class)->index()->nullable();
