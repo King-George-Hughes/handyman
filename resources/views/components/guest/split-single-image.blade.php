@@ -13,7 +13,6 @@
                 <img class="h-full object-contain"
                     src={{ $images ? asset('storage/' . $img) : asset('/images/george.jpg') }} alt="" />
             </div>
-
         </div>
     @endforeach
 </div>

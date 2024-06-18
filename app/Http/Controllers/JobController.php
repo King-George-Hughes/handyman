@@ -15,8 +15,14 @@ class JobController extends Controller
      */
     public function index()
     {
-        // $jobs = Job::latest()->get();
-        $jobs = Job::with('region', 'location', 'job_type', 'user')->latest()->paginate(6);
+        $search = request()->get('search');
+        $jobTypeId = request()->get('job_type_id');
+        $regionId = request()->get('region_id');
+        $locationId = request()->get('location_id');
+        // $jobs = Job::with('region', 'location', 'job_type', 'user')->latest()->paginate(6);
+
+        $jobs = Job::query()->with('region', 'location', 'job_type', 'user')->filterBySearch($search, $jobTypeId, $regionId, $locationId)->latest()->paginate(6);
+
         $job_types = JobType::all();
         $regions = Region::all();
         $locations = Location::all();
@@ -38,7 +44,7 @@ class JobController extends Controller
         $regions = Region::all();
         $locations = Location::all();
 
-        return view('job.create',[
+        return view('job.create', [
             'job_types' => $job_types,
             'regions' => $regions,
             'locations' => $locations,
@@ -56,7 +62,7 @@ class JobController extends Controller
             'job_type_id' => ['required'],
             'region_id' => ['required'],
             'location_id' => ['required'],
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $storedFiles = [];
@@ -85,7 +91,7 @@ class JobController extends Controller
     public function show(Job $job)
     {
         return view('job.show', [
-            'job' => $job
+            'job' => $job,
         ]);
     }
 
@@ -98,10 +104,10 @@ class JobController extends Controller
         $regions = Region::all();
         $locations = Location::all();
 
-        if($job->user_id != auth()->id()){
+        if ($job->user_id != auth()->id()) {
             abort(403, 'Unauthorized Access');
         }
-        
+
         return view('job.edit', [
             'job' => $job,
             'job_types' => $job_types,
@@ -115,7 +121,7 @@ class JobController extends Controller
      */
     public function update(Request $request, Job $job)
     {
-        if($job->user_id != auth()->id()){
+        if ($job->user_id != auth()->id()) {
             abort(403, 'Unauthorized Access');
         }
 
@@ -149,10 +155,10 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        if($job->user_id != auth()->id()){
+        if ($job->user_id != auth()->id()) {
             abort(403, 'Unauthorized Access');
         }
-        
+
         $job->delete();
 
         return redirect('/')->with('message', 'Job Deleted Successfully!');

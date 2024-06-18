@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,8 +18,31 @@ class Job extends Model
         'job_type_id',
         'region_id',
         'location_id',
-        'images', 
     ];
+
+    public function scopeFilterBySearch(Builder $query, $search, $jobTypeId = null, $regionId = null, $locationId = null)
+    {
+        if ($search) {
+            $query->where(function (Builder $query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        if ($jobTypeId) {
+            $query->where('job_type_id', $jobTypeId);
+        }
+
+        if ($regionId) {
+            $query->where('region_id', $regionId);
+        }
+
+        if ($locationId) {
+            $query->where('location_id', $locationId);
+        }
+
+        return $query;
+    }
 
     public function user()
     {

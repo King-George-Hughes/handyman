@@ -8,7 +8,7 @@
     <img src={{ $job->images ? asset('storage/' . $image[0]) : asset('images/eyram.jpg') }}
         class="w-full h-[300px] object-cover group-hover:scale-105 duration-300" alt="" />
 
-    <div class="w-full p-2">
+    <div class="w-full p-5">
         <h2 class="text-lg font-bold space-x-2 mt-3">{{ $job->title }}</h2>
         <h5 class="text-lg font-bold space-x-2 mt-3">
             <span
