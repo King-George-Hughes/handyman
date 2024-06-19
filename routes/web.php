@@ -13,10 +13,9 @@ Route::get('/add-job', [JobController::class, 'create'])->middleware('auth');
 Route::get('/job/{job}/edit', [JobController::class, 'edit'])->middleware('auth');
 Route::patch('/job/{job}', [JobController::class, 'update'])->middleware('auth');
 Route::post('/add-job', [JobController::class, 'store'])->middleware('auth');
+Route::delete('/job/{job}/delete', [JobController::class, 'destroy'])->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [JobController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -35,6 +35,15 @@ class JobController extends Controller
         ]);
     }
 
+    public function dashboard()
+    {
+        $jobs = Job::where('user_id', auth()->id())->get();
+
+        return view('dashboard', [
+            'jobs' => $jobs,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
