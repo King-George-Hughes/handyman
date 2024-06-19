@@ -21,21 +21,22 @@
     </div>
 
     <!-- Filter -->
-    <x-guest.filter :job_types="$job_types" :regions="$regions" :locations="$locations" />
-
-    <form action="/">
-        <div class="relative border-2 border-gray-100 m-4 rounded-lg">
+    <form action="/" class="px-10 my-10 ">
+        <div class="relative border-2 border-brightRed m-4 h-52 md:h-fit rounded-lg outline-none focus:outline-none">
           <div class="absolute top-4 left-3">
-            <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+            <i class="fa fa-search text-brightRed z-20 hover:text-brightRedLight"></i>
           </div>
           <input
             type="text"
             name="search"
-            class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
-            placeholder="Search Laravel Gigs..."
+            class="h-14 w-full pl-10 pr-20 border-none rounded-lg z-0 outline-none focus:outline-none"
+            placeholder="Search job..."
             value="{{ request('search') }}"
           />
-          <div class="absolute top-2 right-2">
+          
+          <div class="absolute top-2 right-2 inline-flex flex-col md:flex-row">
+            <x-guest.filter :job_types="$job_types" :regions="$regions" :locations="$locations" />
+
             <button
               type="submit"
               class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600"
