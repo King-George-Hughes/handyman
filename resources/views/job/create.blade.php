@@ -99,7 +99,7 @@
                     <div class="space-y-2">
                         <label for="af-submit-app-upload-images"
                             class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-200">
-                            Upload Images
+                            Images <span class="text-brightRed text-xs">Upload at least 2 images</span>
                         </label>
 
                         <label for="af-submit-app-upload-images"
@@ -135,7 +135,7 @@
 
         <div class="mt-10 w-full flex justify-center gap-x-2">
             <button type="submit"
-                class="w-full py-3 px-4 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                class="w-full py-3 px-4 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-brightRed text-white hover:bg-brightRedLight disabled:opacity-50 disabled:pointer-events-none">
                 Add Post
             </button>
         </div>

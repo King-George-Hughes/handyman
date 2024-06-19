@@ -37,7 +37,7 @@ class JobController extends Controller
 
     public function dashboard()
     {
-        $jobs = Job::where('user_id', auth()->id())->get();
+        $jobs = Job::where('user_id', auth()->id())->latest()->get();
 
         return view('dashboard', [
             'jobs' => $jobs,
@@ -114,7 +114,8 @@ class JobController extends Controller
         $locations = Location::all();
 
         if ($job->user_id != auth()->id()) {
-            abort(403, 'Unauthorized Access');
+            // abort(403, 'Unauthorized Access');
+            return back()->with('message', "Unauthorized access");
         }
 
         return view('job.edit', [
@@ -131,7 +132,8 @@ class JobController extends Controller
     public function update(Request $request, Job $job)
     {
         if ($job->user_id != auth()->id()) {
-            abort(403, 'Unauthorized Access');
+            // abort(403, 'Unauthorized Access');
+            return back()->with('message', "Unauthorized access");
         }
 
         $formData = $request->validate([
@@ -165,7 +167,8 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         if ($job->user_id != auth()->id()) {
-            abort(403, 'Unauthorized Access');
+            // abort(403, 'Unauthorized Access');
+            return back()->with('message', "Unauthorized access");
         }
 
         $job->delete();

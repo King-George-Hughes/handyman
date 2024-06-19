@@ -44,6 +44,8 @@
     <!-- Navbar -->
     @include('components.guest.navbar')
 
+    <x-guest.flash-message />
+
     <main>
         {{ $slot }}
     </main>
