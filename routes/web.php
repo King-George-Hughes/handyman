@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfileController;
@@ -16,6 +15,7 @@ Route::post('/add-job', [JobController::class, 'store'])->middleware('auth');
 Route::delete('/job/{job}/delete', [JobController::class, 'destroy'])->middleware('auth');
 
 Route::get('/dashboard', [JobController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/profile/{id}', [ProfileController::class, 'getUser'])->name('profile.user');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -37,7 +37,7 @@ class JobController extends Controller
 
     public function dashboard()
     {
-        $jobs = Job::where('user_id', auth()->id())->latest()->get();
+        $jobs = Job::where('user_id', auth()->id())->latest()->paginate(5);
 
         return view('dashboard', [
             'jobs' => $jobs,
@@ -71,6 +71,7 @@ class JobController extends Controller
             'job_type_id' => ['required'],
             'region_id' => ['required'],
             'location_id' => ['required'],
+            'images' => 'required',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

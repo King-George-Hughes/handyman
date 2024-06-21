@@ -27,8 +27,8 @@
             {{-- <x-guest.split-single-image :images="$job->images" /> --}}
             <div>
                 <h2 class="text-2xl font-bold">
-                    {{ $job->job_type->name }},
-                    <span class="underline">{{ $job->user->name }}</span>
+                    <span class="text-brightRed">{{ $job->job_type->name }}</span> |
+                    <a href='/profile/{{$job->user_id}}' class="underline">{{ $job->user->name }}</a>
                 </h2>
 
                 <span class="text-sm p-1 font-bold">
