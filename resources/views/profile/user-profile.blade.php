@@ -34,7 +34,7 @@
         <div class="w-full mx-auto text-center space-y-3 mt-10">
             <h4 class="text-2xl font-semibold text-blue-500">{{$user->email}}</h4>
             <h4 class="text-2xl font-semibold">{{$user->contact}}</h4>
-            <h4 class="text-xl font-semibold"><span class="text-gray-500 text-md">Joined at:</span> <span class="text-brightRedLight underline">{{ $interval }}</span></h4>
+            <h4 class="text-xl font-semibold"><span class="text-gray-500 text-md">Joined on:</span> <span class="text-brightRedLight underline">{{ $interval }}</span></h4>
         </div>
     </div>
 
