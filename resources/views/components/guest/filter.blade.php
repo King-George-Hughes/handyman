@@ -1,7 +1,7 @@
 @props(['job_types', 'regions', 'locations'])
 
 {{-- <div class="mt-9 md:flex md:px-12 md:py-6 md:justify-between items-center w-full gap-5 mx-auto md:flex-row md:space-x-6"> --}}
-<div class="h-fit md:h-10 flex flex-col md:px-12 md:justify-between items-center gap-2 mx-auto md:flex-row md:space-x-2">
+<div class="h-fit md:h-10 flex flex-col md:justify-between items-center gap-2 md:flex-row md:space-x-2">
     <div class="hs-dropdown relative inline-flex">
         <button id="hs-dropdown-default" type="button"
             class="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
