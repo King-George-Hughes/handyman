@@ -130,10 +130,15 @@
                                                     </span>
                                                 </div>
                                             </td>
+                                            @php
+                                                $interval = Carbon\Carbon::parse(
+                                                    $job->created_at,
+                                                )->toFormattedDateString();
+                                            @endphp
                                             <td class="size-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span
-                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $job->created_at }}</span>
+                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $interval }}</span>
                                                 </div>
                                             </td>
                                             <td class="size-px whitespace-nowrap">
@@ -188,7 +193,7 @@
 
                             <!-- Footer -->
                             <div class="mt-6 p-5">
-                                {{$jobs->links()}}
+                                {{ $jobs->links() }}
                             </div>
                             <!-- End Footer -->
                         </div>

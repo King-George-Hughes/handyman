@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,13 @@ Route::delete('/job/{job}/delete', [JobController::class, 'destroy'])->middlewar
 Route::get('/dashboard', [JobController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/profile/{id}', [ProfileController::class, 'getUser'])->name('profile.user');
 
+// Admin
+Route::middleware('auth')->group(function () {
+    Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/manage-users', [AdminController::class, 'manage_users'])->name('admin.manage-users');
+});
+
+// Authenticated Users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
