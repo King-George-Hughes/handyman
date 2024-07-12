@@ -13,8 +13,8 @@
                     @include('profile.partials.update-profile-information-form')
                 </div>
 
-                <div class="mt-10 lg:mt-0 mx-auto lg:mx-0 lg:absolute right-[10%] top-[25%] bg-brightRed w-[300px] h-[300px] rounded-full overflow-hidden">
-                    <img src={{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/eyram.jpg') }} alt="avatar" class="w-full h-full object-cover">
+                <div class="mt-10 lg:mt-0 mx-auto lg:mx-0 lg:absolute right-[10%] top-[25%] w-[300px] h-[300px] rounded-full overflow-hidden">
+                    <img src={{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default.png') }} alt="avatar" class="w-full h-full object-cover">
                 </div>
             </div>
 
